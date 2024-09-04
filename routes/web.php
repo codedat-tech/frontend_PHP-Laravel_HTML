@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('admin-login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login.form');
+Route::post('admin-login', [AdminAuthController::class, 'login'])->name('admin.login');
+
+// Define route for index view
+Route::get('index', function () {
+    return view('index');
+})->name('index');
+
+Route::resource('products', ProductController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
+
