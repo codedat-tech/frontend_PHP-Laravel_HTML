@@ -3,22 +3,54 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    background-image: url('/img/refargotohp-BrKcj1oIfBg-unsplash.jpg');
+    display: flex;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
+/* Sidebar Navigation */
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    width: calc(100% - 250px); /* Adjust width based on sidebar width */
+}
+
+/* Header */
 h1 {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* Forms */
 form {
     margin-bottom: 20px;
 }
@@ -28,6 +60,12 @@ form input, form textarea, form button {
     width: 100%;
     margin: 10px 0;
     padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input, form textarea {
+    font-size: 16px;
 }
 
 form button {
@@ -35,15 +73,18 @@ form button {
     border: none;
     color: white;
     cursor: pointer;
+    font-size: 16px;
 }
 
 form button:hover {
     background-color: #0056b3;
 }
 
+/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
 table, th, td {
@@ -57,4 +98,44 @@ th, td {
 
 th {
     background-color: #f4f4f4;
+    font-weight: bold;
 }
+
+/* Mobile Navigation */
+@media (max-width: 1199px) {
+    .sidebar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .mobile-nav-toggle {
+        display: block;
+        color: #343a40;
+        font-size: 28px;
+        line-height: 0;
+        cursor: pointer;
+        padding: 10px;
+        background-color: #f4f4f4;
+        border: none;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+    }
+}
+
