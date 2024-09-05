@@ -12,7 +12,11 @@
         <h2>Navigation</h2>
         <a href="{{ url('index') }}">Home</a>
         <a href="{{ url('index') }}">Products</a>
+<<<<<<< HEAD
         <a href="{{ url('categories') }}">Category</a>
+=======
+        <a href="{{ url('products') }}">Category</a>
+>>>>>>> 109c8ac29fb41fa19c6b59220b87a0b3321a47a0
         <a href="{{ url('admin-login') }}">Login</a>
         <!-- Add more links as needed -->
     </aside>
