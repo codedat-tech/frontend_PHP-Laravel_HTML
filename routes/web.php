@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 // Admin Login Routes
 Route::get('admin-login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login.form');
@@ -14,6 +15,8 @@ Route::post('products', [ProductController::class, 'store']);
 Route::put('products/{id}', [ProductController::class, 'update']);
 Route::delete('products/{id}', [ProductController::class, 'destroy']);
 
+
+Route::resource('categories', CategoryController::class);
 
 // Product Routes (This automatically generates all CRUD routes)
 Route::resource('products', ProductController::class);
