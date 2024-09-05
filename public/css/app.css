@@ -9,39 +9,31 @@ body {
     width: 80%;
     margin: auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
+    background: #fff;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 form {
     margin-bottom: 20px;
 }
 
-form label {
+form input, form textarea, form button {
     display: block;
-    margin-top: 10px;
-}
-
-form input {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    margin: 10px 0;
+    padding: 10px;
 }
 
 form button {
-    margin-top: 10px;
-    padding: 10px;
     background-color: #007bff;
     border: none;
-    color: #fff;
-    border-radius: 4px;
+    color: white;
     cursor: pointer;
 }
 
@@ -52,7 +44,6 @@ form button:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 table, th, td {
