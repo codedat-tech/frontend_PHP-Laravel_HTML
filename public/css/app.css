@@ -96,7 +96,7 @@ form input:focus, form textarea:focus, form select:focus {
 
 /* Buttons */
 form button {
-    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient background */
+    background: linear-gradient(135deg, #ff4800, #0056b3); /* Gradient background */
     border: none;
     color: white;
     font-size: 18px;
@@ -261,3 +261,5 @@ tr:hover {
 * {
     transition: all 0.3s ease-in-out;
 }
+
+
