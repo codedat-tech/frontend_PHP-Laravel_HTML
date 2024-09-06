@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 
+
 // Admin Login Routes
 Route::get('admin-login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login.form');
 Route::post('admin-login', [AdminAuthController::class, 'login'])->name('admin.login');
