@@ -10,10 +10,9 @@
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <h2>Navigation</h2>
-        <a href="{{ url('index') }}">Home</a>
+        <a href="{{ route('welcome') }}">Home</a>
         <a href="{{ url('products') }}">Products</a>
         <a href="{{ url('categories') }}">Category</a>
-        <a href="{{ url('admin-login') }}">Login</a>
         <!-- Add more links as needed -->
     </aside>
 
