@@ -217,7 +217,53 @@ tr:hover {
     background-color: #f1f1f1;
     cursor: pointer;
 }
+/* Button Styling */
+.btn-warning {
+    display: inline-block;
+    padding: 15px 60px; /* Adjust padding for better click area */
+    background-color: #ff3907; /* Warning color */
+    color: #fff; /* White text color */
+    border: none; /* Remove default border */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 16px; /* Larger font size for better readability */
+    font-weight: bold; /* Bold text */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
 
+.btn-warning:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Optional: Focus style for better accessibility */
+.btn-warning:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0px 0px 0px 2px rgba(0, 123, 255, 0.5); /* Add custom focus ring */
+}
+
+/* Edit Category Modal */
+#editModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 1001; /* Ensure it's on top */
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
 
 /* Mobile Navigation */
 @media (max-width: 1199px) {

@@ -10,7 +10,7 @@
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <h2>Navigation</h2>
-        <a href="{{ route('welcome') }}">Home</a>
+        <a href="{{ url('welcome') }}">Home</a>
         <a href="{{ url('products') }}">Products</a>
         <a href="{{ url('categories') }}">Category</a>
         <!-- Add more links as needed -->

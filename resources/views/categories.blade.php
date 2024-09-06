@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories Management</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Capp.css') }}">
 </head>
 <body>
     <!-- Sidebar Navigation -->
@@ -14,7 +13,7 @@
         <a href="{{ url('index') }}">Home</a>
         <a href="{{ url('index') }}">Products</a>
         <a href="{{ url('categories') }}">Category</a>
-        <a href="{{ url('admin-login') }}">Login</a>
+        
         <!-- Add more links as needed -->
     </aside>
 
@@ -47,56 +46,56 @@
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
 
-            <!-- Categories List -->
-            <h2>Categories List</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($categories as $category)
-                        <tr>
-                            <td>{{ $category->name }}</td>
-                            <td>{{ $category->description }}</td>
-                            <td>
-                                <!-- Edit Category Form -->
-                                <form action="{{ route('categories.update', $category->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="button" onclick="editCategory({{ $category->id }})" class="btn btn-warning">Edit</button>
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+<!-- Categories List -->
+<h2>Categories List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($categories as $category)
+            <tr>
+                <td>{{ $category->name }}</td>
+                <td>{{ $category->description }}</td>
+                <td>
+                    <button type="button" class="btn btn-warning" onclick="editCategory({{ $category->id }})">Edit</button>
+                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
 
-    <!-- Edit Category Modal -->
-    <div id="editModal" style="display:none;">
-        <div class="modal-content">
-            <h2>Edit Category</h2>
-            <form id="editForm" method="POST">
-                @csrf
-                @method('PUT')
-                <input type="hidden" id="edit_id" name="id">
-                <label for="edit_name">Name:</label>
-                <input type="text" id="edit_name" name="name" required>
-                
-                <label for="edit_description">Description:</label>
-                <textarea id="edit_description" name="description"></textarea>
-                
-                <button type="submit" class="btn btn-primary">Update</button>
-                <button type="button" onclick="closeEditModal()" class="btn btn-secondary">Cancel</button>
-            </form>
-        </div>
+
+<!-- Edit Category Modal -->
+<div id="editModal" style="display:none;">
+    <div class="modal-content">
+        <h2>Edit Category</h2>
+        <form id="editForm" method="POST">
+            @csrf
+            @method('PUT')
+            <input type="hidden" id="edit_id" name="id">
+            <label for="edit_name">Name:</label>
+            <input type="text" id="edit_name" name="name" required>
+            
+            <label for="edit_description">Description:</label>
+            <textarea id="edit_description" name="description"></textarea>
+            
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" onclick="closeEditModal()" class="btn btn-secondary">Cancel</button>
+        </form>
     </div>
+</div>
+
+
 
     <script>
         // Toggle mobile menu
@@ -112,22 +111,26 @@
         });
 
         // Function to open edit category modal
-        function editCategory(id) {
-            fetch(`/categories/${id}/edit`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('edit_id').value = data.id;
-                    document.getElementById('edit_name').value = data.name;
-                    document.getElementById('edit_description').value = data.description;
-                    document.getElementById('editForm').action = `/categories/${id}`;
-                    document.getElementById('editModal').style.display = 'block';
-                });
-        }
+function editCategory(id) {
+    fetch(`/categories/${id}/edit`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('edit_id').value = data.id;
+            document.getElementById('edit_name').value = data.name;
+            document.getElementById('edit_description').value = data.description;
+            document.getElementById('editForm').action = `/categories/${data.id}`;
+            document.getElementById('editModal').style.display = 'block';
+        });
+}
 
-        // Function to close edit category modal
-        function closeEditModal() {
-            document.getElementById('editModal').style.display = 'none';
-        }
+// Function to close edit category modal
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+}
+
+
+        document.getElementById('editForm').action = `/categories/${id}`;
+
     </script>
 </body>
 </html>
