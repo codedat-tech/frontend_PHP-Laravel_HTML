@@ -11,12 +11,8 @@
     <aside class="sidebar">
         <h2>Navigation</h2>
         <a href="{{ url('index') }}">Home</a>
-        <a href="{{ url('index') }}">Products</a>
-<<<<<<< HEAD
+        <a href="{{ url('products') }}">Products</a>
         <a href="{{ url('categories') }}">Category</a>
-=======
-        <a href="{{ url('products') }}">Category</a>
->>>>>>> 109c8ac29fb41fa19c6b59220b87a0b3321a47a0
         <a href="{{ url('admin-login') }}">Login</a>
         <!-- Add more links as needed -->
     </aside>
@@ -37,12 +33,22 @@
 
             <!-- Product Creation Form -->
             <form action="{{ url('products') }}" method="POST">
-                @csrf
-                <input type="text" name="name" placeholder="Product Name" required>
-                <textarea name="description" placeholder="Product Description" required></textarea>
-                <input type="number" step="0.01" name="price" placeholder="Product Price" required>
-                <button type="submit">Add Product</button>
-            </form>
+    @csrf
+    <input type="text" name="name" placeholder="Product Name" required>
+    <textarea name="description" placeholder="Product Description" required></textarea>
+    <input type="number" step="0.01" name="price" placeholder="Product Price" required>
+
+    <!-- Category Dropdown -->
+    <select name="category_name" required>
+        <option value="">Select Category</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->name }}">{{ $category->name }}</option>
+        @endforeach
+    </select>
+
+    <button type="submit">Add Product</button>
+</form>
+
 
             <!-- Product Table -->
             <table>
@@ -51,6 +57,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Price</th>
+                        <th>Category</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -60,6 +67,7 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
                             <td>${{ $product->price }}</td>
+                            <td>{{ $product->category_name }}</td>
                             <td>
                                 <!-- Edit Form -->
                                 <form action="{{ url('products/' . $product->id) }}" method="POST" style="display:inline;">
@@ -68,6 +76,12 @@
                                     <input type="text" name="name" value="{{ $product->name }}" required>
                                     <textarea name="description" required>{{ $product->description }}</textarea>
                                     <input type="number" step="0.01" name="price" value="{{ $product->price }}" required>
+                                    <select name="category_name" required>
+                                        <option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->name }}" {{ $category->name == $product->category_name ? 'selected' : '' }}>{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
                                     <button type="submit">Update</button>
                                 </form>
                                 

@@ -4,62 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories Management</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Categories Management</h1>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <h2>Navigation</h2>
+        <a href="{{ url('index') }}">Home</a>
+        <a href="{{ url('index') }}">Products</a>
+        <a href="{{ url('categories') }}">Category</a>
+        <a href="{{ url('admin-login') }}">Login</a>
+        <!-- Add more links as needed -->
+    </aside>
 
-        <!-- Success Message -->
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                {{ $message }}
-            </div>
-        @endif
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Mobile Nav Toggle Button -->
+        <button class="mobile-nav-toggle">&#9776;</button>
 
-        <!-- Create Category Form -->
-        <h2>Create New Category</h2>
-        <form action="{{ route('categories.store') }}" method="POST">
-            @csrf
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="{{ old('name') }}" required>
-            
-            <label for="description">Description:</label>
-            <textarea id="description" name="description">{{ old('description') }}</textarea>
-            
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
+        <!-- Page Content -->
+        <div class="container">
+            <h1>Categories Management</h1>
 
-        <!-- Categories List -->
-        <h2>Categories List</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($categories)) {?>
-                @foreach ($categories as $category)
+            <!-- Display success message -->
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    {{ $message }}
+                </div>
+            @endif
+
+            <!-- Create Category Form -->
+            <h2>Create New Category</h2>
+            <form action="{{ route('categories.store') }}" method="POST">
+                @csrf
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+                
+                <label for="description">Description:</label>
+                <textarea id="description" name="description">{{ old('description') }}</textarea>
+                
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+
+            <!-- Categories List -->
+            <h2>Categories List</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>{{ $category->name }}</td>
-                        <td>{{ $category->description }}</td>
-                        <td>
-                            <!-- Edit Category Form -->
-                            <form action="{{ route('categories.update', $category->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('PUT')
-                                <button type="button" onclick="editCategory({{ $category->id }})" class="btn btn-warning">Edit</button>
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
                     </tr>
-                @endforeach
-                <?php }?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->description }}</td>
+                            <td>
+                                <!-- Edit Category Form -->
+                                <form action="{{ route('categories.update', $category->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="button" onclick="editCategory({{ $category->id }})" class="btn btn-warning">Edit</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Edit Category Modal -->
@@ -83,6 +99,19 @@
     </div>
 
     <script>
+        // Toggle mobile menu
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggleButton = document.querySelector('.mobile-nav-toggle');
+            var sidebar = document.querySelector('.sidebar');
+
+            if (toggleButton && sidebar) {
+                toggleButton.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                });
+            }
+        });
+
+        // Function to open edit category modal
         function editCategory(id) {
             fetch(`/categories/${id}/edit`)
                 .then(response => response.json())
@@ -95,6 +124,7 @@
                 });
         }
 
+        // Function to close edit category modal
         function closeEditModal() {
             document.getElementById('editModal').style.display = 'none';
         }

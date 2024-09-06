@@ -13,5 +13,6 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'category_name', // Add this to allow mass assignment
     ];
 }
