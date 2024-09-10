@@ -10,7 +10,6 @@
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <h2>Navigation</h2>
-        <a href="{{ url('index') }}">Home</a>
         <a href="{{ url('index') }}">Products</a>
         <a href="{{ url('categories') }}">Category</a>
         

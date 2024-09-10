@@ -4,15 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;  // Import the Product model
 use App\Models\Category; // Import the Category model
+use App\Models\Admin;    // Import the Admin model for user verification
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Check if username is passed via session or request
+        $username = session('username') ?? $request->input('username');
+
+        // If no username is provided, redirect back to admin login
+        if (!$username) {
+            return redirect()->route('admin.login')->with('error', 'Please log in to continue.');
+        }
+
+        // Validate the username against the admins table
+        $admin = Admin::where('username', $username)->first();
+
+        // If the admin is not found, redirect back to admin login
+        if (!$admin) {
+            return redirect()->route('admin.login')->with('error', 'Invalid credentials. Please log in again.');
+        }
+
+        // If the username is valid, fetch products and categories
         $products = Product::all();
-        $categories = Category::all(); // Fetch categories to use in the form
-        return view('index', compact('products', 'categories'));
+        $categories = Category::all(); 
+
+        // Pass the data along with the username to the view
+        return view('index', compact('products', 'categories', 'username'));
     }
     
 
@@ -35,7 +55,6 @@ class ProductController extends Controller
     
         return redirect()->back()->with('success', 'Product added successfully!');
     }
-    
     
 
     public function update(Request $request, $id)

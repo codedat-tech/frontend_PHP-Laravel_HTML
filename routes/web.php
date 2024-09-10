@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 
 
 // Admin Login Routes
@@ -27,9 +28,16 @@ Route::get('/admin/welcome', [AdminController::class, 'showWelcomePage'])->name(
 // Product Routes (This automatically generates all CRUD routes)
 Route::resource('products', ProductController::class);
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/welcome',[HomeController:: class,'index'])->Middleware('admin');
+// Route::get('/index',[HomeController:: class,'index'])->Middleware('admin');
+
+
+// Route::get('/index', function () {
+//     return view('index');
+// })->name('index');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('welcome');
 
 
 // Welcome Route

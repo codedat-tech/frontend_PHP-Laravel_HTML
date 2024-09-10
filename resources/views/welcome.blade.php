@@ -12,7 +12,8 @@
         <div class="welcome-box">
             <h1>Welcome, Admin!</h1>
             <p>Manage your dashboard efficiently with our powerful tools.</p>
-            <a href="{{ route('index') }}" class="btn">Go to Dashboard</a>
+            <a href="{{ url('/index') }}" class="btn">Go to Dashboard</a>
+
         </div>
     </div>
 </body>

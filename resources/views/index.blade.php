@@ -7,10 +7,24 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
+
+
+
+
+
+
+<!-- <h1>Welcome, {{ $username }}!</h1>
+
+<!-- Display success message if any -->
+@if(session('success'))
+    <p>{{ session('success') }}</p>
+@endif
+
+
+
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <h2>Navigation</h2>
-        <a href="{{ url('welcome') }}">Home</a>
         <a href="{{ url('products') }}">Products</a>
         <a href="{{ url('categories') }}">Category</a>
         <!-- Add more links as needed -->
@@ -40,9 +54,11 @@
     <!-- Category Dropdown -->
     <select name="category_name" required>
         <option value="">Select Category</option>
+        <?php if(!empty($categories)) {?>
         @foreach ($categories as $category)
             <option value="{{ $category->name }}">{{ $category->name }}</option>
         @endforeach
+        <?php } ?>
     </select>
 
     <button type="submit">Add Product</button>
@@ -61,6 +77,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php if(!empty($products)) {?>
                     @foreach ($products as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
@@ -93,6 +110,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
