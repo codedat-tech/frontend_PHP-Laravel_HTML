@@ -39,6 +39,9 @@ Route::get('/welcome',[HomeController:: class,'index'])->Middleware('admin');
 //     return view('welcome');
 // })->name('welcome');
 
+Route::get('/admin', function () {
+    return view('admin');
+})->name('admin');
 
 // Welcome Route
 Route::get('/', function () {
