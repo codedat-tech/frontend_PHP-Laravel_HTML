@@ -16,9 +16,9 @@
 <!-- <h1>Welcome, {{ $username }}!</h1>
 
 <!-- Display success message if any -->
-@if(session('success'))
+<!-- @if(session('success'))
     <p>{{ session('success') }}</p>
-@endif
+@endif -->
 
 
 
@@ -28,6 +28,8 @@
         <a href="{{ url('products') }}">Products</a>
         <a href="{{ url('categories') }}">Category</a>
         <a href="{{ url('admin') }}">Logout</a>
+        <a href="{{ route('download.pdf') }}" class="btn btn-primary">Download All Data as PDF</a>
+
         <!-- Add more links as needed -->
     </aside>
 

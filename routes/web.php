@@ -31,6 +31,8 @@ Route::resource('products', ProductController::class);
 Route::get('/welcome',[HomeController:: class,'index'])->Middleware('admin');
 // Route::get('/index',[HomeController:: class,'index'])->Middleware('admin');
 
+Route::get('/download-pdf', [ProductController::class, 'downloadPDF'])->name('download.pdf');
+
 
 // Route::get('/index', function () {
 //     return view('index');

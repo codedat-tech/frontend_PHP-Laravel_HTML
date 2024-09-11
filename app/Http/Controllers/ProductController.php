@@ -6,6 +6,7 @@ use App\Models\Product;  // Import the Product model
 use App\Models\Category; // Import the Category model
 use App\Models\Admin;    // Import the Admin model for user verification
 use Illuminate\Http\Request;
+use PDF;
 
 class ProductController extends Controller
 {
@@ -82,5 +83,19 @@ class ProductController extends Controller
     {
         Product::find($id)->delete();
         return redirect()->route('index')->with('success', 'Product deleted successfully!');
+
+    }
+
+
+    public function downloadPDF()
+    {
+        // Fetch all products
+        $products = Product::all();
+
+        // Load the view and pass the products data to it
+        $pdf = PDF::loadView('products_pdf', compact('products'));
+
+        // Download the PDF file
+        return $pdf->download('products_data.pdf');
     }
 }
