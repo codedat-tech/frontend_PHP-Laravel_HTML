@@ -1,0 +1,17 @@
+
+body {
+  background: #ffffff;
+  font-family: Assistant, sans-serif;
+}
+
+.cell-1 {
+  border-collapse: separate;
+  border-spacing: 0 4em;
+  background: #ffefe7;
+  border-bottom: 5px solid transparent; 
+  background-clip: padding-box;
+}
+
+thead {
+  background: #e2862f;
+}

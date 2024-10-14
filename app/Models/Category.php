@@ -4,12 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Category; // Add this line to import the Category model
-
 
 class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
+    // Specify the primary key column name
+    protected $primaryKey = 'categoryID';
+
+    // Indicate if the primary key is an incrementing integer
+    public $incrementing = true;
+
+    // Specify the data type of the primary key
+    protected $keyType = 'int';
+
+    // Specify the fields that can be mass-assigned, including 'image'
+    protected $fillable = ['name', 'description', 'image'];
+    public function products() {
+        return $this->hasMany(Product::class, 'categoryID');
+
 }
+}
+

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="asset/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <title>Cart</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="row-flex">
+                <div class="header-logo">
+                    <img src="asset/image/logo.jpg" alt="">
+                </div>
+                <div class="header-nav">
+                    <nav>
+                        <ul>
+                            <li><a href="">HOME</a></li>
+                            <li><a href="">ABOUT US</a></li>
+                            <li><a href="">PRODUCT</a></li>
+                            <li><a href="">PROJECT</a></li>
+                            <li><a href="">CONTACT US</a></li>
+                            <li><a href="">LOGIN</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="header-search">
+                    <input type="text" placeholder="search">
+                    <i class="ri-search-line"></i>
+                </div>
+                <div class="header-cart">
+                    <i class="ri-shopping-cart-2-line" number="0"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="cart">
+        <div class="container">
+            <div class="cart-top-wrap">
+                <div class="cart-top">
+                    <div class="cart-top-cart cart-top-item">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="cart-top-address cart-top-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="cart-content">
+                <div class="cart-content-left">
+                    <table>
+                        <tr>
+                            <th>Item</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tr>
+                            <td><img src="asset/image/furniture/sofa/sofa1_1.jpg" alt=""></td>
+                            <td><p>Ten san pham</p></td>
+                            <td><input type="number" value="1" min="1"></td>
+                            <td><p>790.000 <sup>VND</sup></p></td>
+                            <td><span>X</span></td>
+                        </tr>
+                        <tr>
+                            <td><img src="asset/image/furniture/chair/chair2_3.jpg" alt=""></td>
+                            <td><p>Ten san pham</p></td>
+                            <td><input type="number" value="1" min="1"></td>
+                            <td><p>790.000 <sup>VND</sup></p></td>
+                            <td><span>X</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="cart-content-right">
+                    <table>
+                        <tr>
+                            <th colspan="2">Total Amount</th>
+                        </tr>
+                        <tr>
+                            <td>Total Product</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Total Price</td>
+                            <td><p>790.000 <sup>VND</sup></p></td>
+                        </tr>
+                        <tr>
+                            <td>Values</td>
+                            <td><p style="color: black; font-weight: bold;">790.000 <sup>VND</sup></p></td>
+                        </tr>
+                    </table>
+                    <div class="cart-content-right-text">
+                        <p>You will have freeship if your order is greater than 2.000.000 VND</p>
+                        <p style="color: red; font-size: bold;">Buy <span style="font-size: 18px;">100.000 VND</span> more to have freeship</p>
+                    </div>
+                    <div class="cart-content-right-button">
+                        <button>Continue shopping</button>
+                        <button>Go to payment</button>
+                    </div>
+                    <div class="cart-content-right-login">
+                        <p><a href="">Login</a> to gain membership points</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="asset/js/script.js"></script>
+</body>
+</html>
