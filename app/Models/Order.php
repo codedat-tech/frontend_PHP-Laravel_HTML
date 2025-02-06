@@ -9,24 +9,35 @@ class Order extends Model
 {
     use HasFactory;
 
-    // Define the table name if it is different from the default (plural of the model name)
     protected $table = 'orders';
 
-    // Define the primary key if it's not 'id'
     protected $primaryKey = 'orderID';
 
-    // Specify which attributes can be mass assigned
     protected $fillable = [
         'customerID',
         'orderDate',
+        'status1',
         'status',
         'totalPrice',
         'shippingAddress',
     ];
 
-    // Define the relationship with the Customer model (assuming you have a Customer model)
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customerID', 'customerID');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'orderID', 'orderID');
+    }
+    public function reviewOrder()
+    {
+        return $this->hasMany(ReviewOrder::class, 'orderID', 'orderID');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'order_id', 'orderID'); // Adjust 'order_id' to your actual foreign key
     }
 }

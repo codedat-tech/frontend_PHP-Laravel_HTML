@@ -19,8 +19,6 @@ class Admin
         if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->role == 'admin') {
             return $next($request);
         }
-
-        // If not, return an unauthorized response
         abort(401);
     }
 }

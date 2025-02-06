@@ -7,76 +7,131 @@ use App\Models\Consultation;
 use App\Models\Customer;
 use App\Models\Designer;
 use App\Models\Order;
-use Illuminate\Container\Attributes\DB;
-use Illuminate\Support\Facades\DB as FacadesDB;
+use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    // lấy count
+    private function getStatistics()
+    {
+        return [
+            'productCount' => Product::count(),
+            'orderCount' => Order::count(),
+            'userCount' => Customer::count(),
+            'consultationCount' => Consultation::count(),
+        ];
+    }
     // Product report
     public function index()
     {
+        $totalCounts = $this->getStatistics();
+
         $categories = Category::withCount('products')->get();
 
         $categoryNames = $categories->pluck('name');
         $productCounts = $categories->pluck('products_count');
-
-        return view('admin.report.product-dashboard', compact('categories', 'categoryNames', 'productCounts'));
+        return view('admin.report.product-dashboard', array_merge($totalCounts, compact('categories', 'categoryNames', 'productCounts')));
     }
 
     // Order report
-    public function order()
+    public function order(Request $request)
     {
+        $totalCounts = $this->getStatistics();
+
+        $year = $request->query('year');
+
+        // Truy vấn dữ liệu đơn hàng theo năm
         $orders = Order::selectRaw('DATE_FORMAT(orderDate, "%Y-%m") as month, COUNT(*) as count')
+            ->when($year, function ($query, $year) {
+                return $query->whereYear('orderDate', $year);
+            })
             ->groupBy('month')
             ->orderBy('month')
             ->get();
 
-        $orderMonths = $orders->pluck('month');
-        $orderCounts = $orders->pluck('count');
-        return view('admin.report.order-dashboard', compact('orderMonths', 'orderCounts'));
+        $orderMonths = $orders->pluck('month'); // Tháng
+        $orderCounts = $orders->pluck('count'); // Số lượng đơn hàng
+
+        // AJAX thì trả về dữ liệu JSON
+        if ($request->ajax()) {
+            return response()->json([
+                'orderMonths' => $orderMonths,
+                'orderCounts' => $orderCounts,
+            ]);
+        }
+        return view('admin.report.order-dashboard', array_merge($totalCounts, compact('orderMonths', 'orderCounts')));
     }
 
     // customer and déigner chart
-    public function customerDesignerChart()
+    public function customerDesignerChart(Request $request)
     {
+        $totalCounts = $this->getStatistics();
+        $year = $request->query('year');
+
+        // Khách hàng theo năm đã chọn
         $customers = Customer::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
+            ->when($year, function ($query, $year) {
+                return $query->whereYear('created_at', $year);
+            })
             ->groupBy('month')
             ->orderBy('month')
-            ->get()
-            ->keyBy('month');
-        // month
+            ->get();
+        $customerMonths = $customers->pluck('month');
+        $customerCounts = $customers->pluck('count');
+
+        // Designer theo năm đã chọn
         $designers = Designer::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
+            ->when($year, function ($query, $year) {
+                return $query->whereYear('created_at', $year);
+            })
             ->groupBy('month')
             ->orderBy('month')
-            ->get()
-            ->keyBy('month');
-        // create array
-        $months = [];
-        $customerCounts = [];
-        $designerCounts = [];
+            ->get();
+        $designerMonths = $designers->pluck('month');
+        $designerCounts = $designers->pluck('count');
 
-        $allMonths = $customers->keys()->merge($designers->keys())->unique()->sort();
-
-        foreach ($allMonths as $month) {
-            $months[] = $month;
-            $customerCounts[] = $customers->get($month)->count ?? 0;
-            $designerCounts[] = $designers->get($month)->count ?? 0;
+        // Kiểm tra nếu là AJAX thì trả về dữ liệu JSON
+        if ($request->ajax()) {
+            return response()->json([
+                'customerMonths' => $customerMonths,
+                'customerCounts' => $customerCounts,
+                'designerMonths' => $designerMonths,
+                'designerCounts' => $designerCounts,
+            ]);
         }
 
-        return view('admin.report.custDesigner-dashboard', compact('months', 'customerCounts', 'designerCounts'));
+        // Nếu không phải AJAX, trả về view bình thường
+        return view('admin.report.custDesigner-dashboard', array_merge($totalCounts, compact('customerMonths', 'customerCounts', 'designerMonths', 'designerCounts')));
     }
-    public function consultationsChart()
+
+
+    public function consultationsChart(Request $request)
     {
+        $totalCounts = $this->getStatistics();
+
+        $year = $request->query('year');
+
+        // Truy vấn dữ liệu consultations theo năm
         $consultationsByMonth = Consultation::selectRaw('DATE_FORMAT(scheduledAT, "%Y-%m") as month, COUNT(*) as count')
+            ->when($year, function ($query, $year) {
+                return $query->whereYear('scheduledAT', $year);
+            })
             ->groupBy('month')
             ->orderBy('month')
-            ->get()
-            ->keyBy('month');
-        $months = $consultationsByMonth->pluck('month');
+            ->get();
 
-        $consultationCountsByMonth = $consultationsByMonth->pluck('count');
+        $consultationMonths = $consultationsByMonth->pluck('month');
+        $consultationCounts = $consultationsByMonth->pluck('count');
 
-        // Trả dữ liệu về view
-        return view('admin.report.consultation-dashboard', compact('months', 'consultationCountsByMonth'));
+        // AJAX thì trả về dữ liệu JSON
+        if ($request->ajax()) {
+            return response()->json([
+                'consultationMonths' => $consultationMonths,
+                'consultationCounts' => $consultationCounts,
+            ]);
+        }
+
+        return view('admin.report.consultation-dashboard', array_merge($totalCounts, compact('consultationMonths', 'consultationCounts')));
     }
 }

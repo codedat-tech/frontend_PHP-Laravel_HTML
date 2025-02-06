@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('category_designs', function (Blueprint $table) {
             $table->id('categoryDesignID');
             $table->string('name');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

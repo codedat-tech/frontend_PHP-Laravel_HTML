@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('title');
             $table->string('description');
+            $table->string('image')->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps(); // This will add `created_at` and `updated_at`
         });
     }

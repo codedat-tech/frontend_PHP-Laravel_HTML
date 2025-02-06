@@ -12,7 +12,17 @@ class Consultation extends Model
     protected $table = 'consultations';
 
     protected $primaryKey = 'consultationID';
-    protected $fillable = ['designerID', 'customerID', 'scheduledAT', 'status', 'note'];
+    public $incrementing = true;
+    protected $fillable = [
+        'designerID',
+        'customerID',
+        'scheduledAT',
+        'status1',
+        'status',
+        'note',
+        'lastNotifiedAt',
+        'alert_sent'
+    ];
 
     // n-1: Mối quan hệ với Customers
     public function customer()

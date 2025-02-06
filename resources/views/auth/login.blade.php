@@ -1,118 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-
+@extends('layouts.index')
+@section('content')
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                <h3 class="text-center mb-4">{{ __('Login') }}</h3>
 
-                    <div class="card-body">
-                        <!-- Display flash messages at the top -->
-                        @if(session('error'))
-                            <div class="alert alert-danger" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
-                        <form method="POST" action="{{ route('login.post') }}">
-                            @csrf
-
-                            {{-- <div class="row mb-3">
-                                <label for="email">Email</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="password">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="row mb-3">
-                                <a href="{{ route('login_admin') }}">For Admin -</a>
-                                <a href="{{ route('login_designer') }}">-  For Designer</a>
-                                <a href="{{ route('register') }}">Register</a>
-                            </div> --}}
-                            <div class="form-group row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row mb-3">
-                                <div class="col-md-8 offset-md-2">
-                                    <a href="{{ route('login_admin') }}" class="btn btn-link">
-                                        {{ __('For Admin') }}
-                                    </a>
-                                    <a href="{{ route('login_designer') }}" class="btn btn-link">
-                                        {{ __('For Designer') }}
-                                    </a>
-                                    <a href="{{ route('register') }}" class="btn btn-link">
-                                        {{ __('Register') }}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                    Submit
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                <!-- Display Error Message -->
+                @if (session('error'))
+                    <div class="alert alert-danger" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
+                        {{ session('error') }}
                     </div>
-                </div>
+                @endif
+
+                <!-- Login Form -->
+                <form method="POST" action="{{ route('login.post') }}" class="border p-4 rounded">
+                    @csrf
+
+                    <!-- Email Input -->
+                    <div class="form-group row mb-3">
+                        <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
+                        <div class="col-md-6">
+                            <input id="email" type="email" class="form-control" name="email" required>
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group row mb-3">
+                        <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
+                        <div class="col-md-6">
+                            <input id="password" type="password" class="form-control" name="password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3 text-center">
+                        <label class="col-form-label">Login as:</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="role" value="customer" checked> Customer
+                            </label>
+                            <label>
+                                <input type="radio" name="role" value="designer"> Designer
+                            </label>
+                            <label>
+                                <input type="radio" name="role" value="admin"> Admin
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button and Back Button -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary me-2">Login</button>
+                        <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+                    </div>
+
+                    <!-- Links for Register and Forget Password -->
+                    <div class="text-center mt-3">
+                        <a href="{{ route('register') }}">Register</a> | <a href="{{ route('password.forget') }}">Forget
+                            Password</a>
+                    </div>
+
+                    <!-- Divider with "or" text -->
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="col-md-5">
+                            <hr>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <p class="m-0"><u>or sign in with</u></p>
+                        </div>
+                        <div class="col-md-5">
+                            <hr>
+                        </div>
+                    </div>
+
+                    <!-- Sign in with Google Button -->
+                    <div class="text-center mt-3">
+                        <a href="{{ Route('social.login', 'google') }}"
+                            class="btn btn-light border d-flex align-items-center justify-content-center mx-auto"
+                            style="color: #4285F4; text-decoration: none; width: 200px;">
+                            <i class="ri-google-fill" style="font-size: 1.5em; margin-right: 8px;"></i> Sign in with Google
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-</body>
-</html>
+@endsection

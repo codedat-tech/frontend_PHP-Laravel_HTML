@@ -10,18 +10,37 @@ class Designer extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'designers'; // Specify the table name
-    protected $primaryKey = 'designerID'; // Set the primary key
+    protected $table = 'designers';
+    protected $primaryKey = 'designerID';
 
-    public $incrementing = false; // Primary key is not auto-incrementing
-    protected $keyType = 'string'; // Primary key is a string
+    public $incrementing = true;
+    protected $keyType = 'string';
 
     protected $fillable = [
-        'fullname', 'email', 'password', 'phone', 'address',
-        'portfolio', 'experienceYear', 'specialization', 'rating','image',
+        'fullname',
+        'email',
+        'password',
+        'phone',
+        'address',
+        'portfolio',
+        'experienceYear',
+        'specialization',
+        'rating',
+        'image',
+        'remember_token',
+        'status',
     ];
 
     protected $hidden = [
-        'password', 'remember_token', // Hide password and token fields
+        'password',
+        'remember_token',
     ];
+    public function blueprints()
+    {
+        return $this->hasMany(Blueprint::class, 'designerID', 'designerID');
+    }
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class, 'designerID');
+    }
 }

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #5b5b5b;
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f7f9fa;
+            border: 1px solid #dcdcdc;
+            transition: background-color 0.3s, border 0.3s;
+        }
+
+        .form-group:hover {
+            background-color: #e9ecef;
+            border: 1px solid #b0b0b0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5b5b5b;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b0b0b0;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: #fff;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #6c757d;
+            box-shadow: 0 0 5px rgba(108, 117, 125, 0.5);
+            outline: none;
+        }
+
+        button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        .cancel-button {
+            background-color: #ffc107; /* Yellow color */
+        }
+
+        .cancel-button:hover {
+            background-color: #e0a800;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .social-links input {
+            width: 100%;
+        }
+
+        .gender-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        /* Media Queries */
+        @media (max-width: 600px) {
+            .social-links {
+                flex-direction: column;
+            }
+            .social-links input {
+                margin-bottom: 10px;
+            }
+            .gender-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Enhanced file input styles */
+        .form-group input[type="file"] {
+            border: none;
+            padding: 5px;
+            background-color: #f7f9fa;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="file"]::file-selector-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group input[type="file"]::file-selector-button:hover {
+            background: #5a6268;
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the element */
+            left: 50%;
+            margin-left: -60px; /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Edit Profile</h2>
+    <form id="editProfileForm" action="" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number <span class="tooltip">?<span class="tooltiptext">Format: 1234567890</span></span></label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <div class="gender-group">
+                <label>
+                    <input type="radio" name="gender" value="male" required> Male
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female" required> Female
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="other" required> Other
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location">
+        </div>
+        <div class="form-group">
+            <label for="experience">Work Experience</label>
+            <textarea id="experience" name="experience" rows="4" placeholder="Describe your work experience..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="skills">Skills</label>
+            <input type="text" id="skills" name="skills">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="profilePicture">Profile Picture</label>
+            <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+        </div>
+        <div class="form-group">
+            <label>Social Media Links</label>
+            <div class="social-links">
+                <input type="text" id="facebook" name="facebook" placeholder="Facebook URL">
+                <input type="text" id="twitter" name="twitter" placeholder="Twitter URL">
+            </div>
+        </div>
+        <button type="submit">Save Changes</button>
+        <button type="button" class="cancel-button" onclick="window.location.href='your-cancel-url-here'">Cancel</button>
+    </form>
+</div>
+
+</body>
+</html>

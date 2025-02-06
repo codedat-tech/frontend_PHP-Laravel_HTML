@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Gallery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery {
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+
+        .gallery-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .gallery-item {
+            margin: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: calc(50% - 2rem);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px; /* Đặt chiều cao cố định */
+            object-fit: cover; /* Giữ tỉ lệ hình ảnh */
+            border-bottom: 2px solid #007BFF;
+        }
+
+        .details {
+            display: none;
+            padding: 10px;
+        }
+
+        .detail-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin: 10px auto;
+        }
+
+        .detail-button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .close {
+            color: #333;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ff0000;
+        }
+
+        .modal h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .submit-button, .submit-review {
+            margin-top: 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-button:hover, .submit-review:hover {
+            background-color: #218838;
+        }
+
+        .notification {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 30%;
+            transform: translate(-50%, -50%);
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.9;
+        }
+
+        .review-section {
+            margin: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        .review:last-child {
+            border-bottom: none;
+        }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .submit-review {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-review:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .gallery-item {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Designer Gallery</h1>
+    </header>
+
+    <div class="gallery" id="designers">
+        <div class="gallery-items" id="galleryItems">
+            <div class="gallery-item" onclick="toggleDetails(this)">
+                <img src="Nhà thiết kếNHD.jpg" alt="Designer 1">
+                <h3><i class="ri-user-line icon"></i> Designer Nguyễn Hoàng Duy</h3>
+                <div class="details">
+                    <button class="detail-button" onclick="viewProfile('Designer Nguyễn Hoàng Duy', 'cv NHD.png', event)">View Profile</button>
+                    <button class="detail-button" onclick="showSchedule('Designer Nguyễn Hoàng Duy')">Check Schedule</button>
+                    <button class="detail-button" onclick="showReviewModal('Designer Nguyễn Hoàng Duy')">Add Review</button>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="toggleDetails(this)">
+                <img src="TTLC.jpg" alt="Designer 2">
+                <h3><i class="ri-user-line icon"></i> Designer Trần Thị Lệ Chi</h3>
+                <div class="details">
+                    <button class="detail-button" onclick="viewProfile('Designer Trần Thị Lệ Chi', 'lechi.png', event)">View Profile</button>
+                    <button class="detail-button" onclick="showSchedule('Designer Trần Thị Lệ Chi')">Check Schedule</button>
+                    <button class="detail-button" onclick="showReviewModal('Designer Trần Thị Lệ Chi')">Add Review</button>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="toggleDetails(this)">
+                <img src="thaicong1.webp" alt="Designer 3">
+                <h3><i class="ri-user-line icon"></i> Designer Quách Thái Công</h3>
+                <div class="details">
+                    <button class="detail-button" onclick="viewProfile('Designer Quách Thái Công', 'cv Thái Công.png', event)">View Profile</button>
+                    <button class="detail-button" onclick="showSchedule('Designer Quách Thái Công')">Check Schedule</button>
+                    <button class="detail-button" onclick="showReviewModal('Designer Quách Thái Công')">Add Review</button>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="toggleDetails(this)">
+                <img src="LeBaThong.webp" alt="Designer 4">
+                <h3><i class="ri-user-line icon"></i> Designer Lê Bá Thông</h3>
+                <div class="details">
+                    <button class="detail-button" onclick="viewProfile('Designer Lê Bá Thông', 'bathong.png', event)">View Profile</button>
+                    <button class="detail-button" onclick="showSchedule('Designer Lê Bá Thông')">Check Schedule</button>
+                    <button class="detail-button" onclick="showReviewModal('Designer Lê Bá Thông')">Add Review</button>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="toggleDetails(this)">
+                <img src="LeQuangThach.jpg" alt="Designer 5">
+                <h3><i class="ri-user-line icon"></i> Designer Lê Quang Thạch</h3>
+                <div class="details">
+                    <button class="detail-button" onclick="viewProfile('Designer Lê Quang Thạch', 'qt.png', event)">View Profile</button>
+                    <button class="detail-button" onclick="showSchedule('Designer Lê Quang Thạch')">Check Schedule</button>
+                    <button class="detail-button" onclick="showReviewModal('Designer Lê Quang Thạch')">Add Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button onclick="scrollGallery('left')"><i class="ri-arrow-left-line"></i> Previous</button>
+        <button onclick="scrollGallery('right')">Next <i class="ri-arrow-right-line"></i> Next</button>
+    </div>
+
+    <div id="notification" class="notification">
+        <span id="notificationMessage">Booking successful</span>
+        <span class="close" onclick="closeNotification()">&times;</span>
+    </div>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('reviewModal')">&times;</span>
+            <h3 id="reviewModalTitle"></h3>
+            <div class="review-form">
+                <input type="text" id="reviewerName" placeholder="Your name" class="form-input">
+                <textarea id="reviewText" placeholder="Write your review" rows="4" class="form-textarea"></textarea>
+                <button class="submit-review" onclick="submitReview()">Submit Review</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('profileModal')">&times;</span>
+            <h3 id="profileTitle"></h3>
+            <img id="profileImage" src="" alt="Profile Image">
+            <p id="profileDescription"></p>
+            <input type="text" id="date" placeholder="Select a date" class="form-input" />
+            <button class="submit-button" onclick="bookAppointment()">Book Appointment</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        function toggleDetails(element) {
+            const details = element.querySelector('.details');
+            details.style.display = details.style.display === 'none' || details.style.display === '' ? 'block' : 'none';
+        }
+
+        function viewProfile(title, image, event) {
+            event.stopPropagation();
+            document.getElementById('profileTitle').innerText = title;
+            document.getElementById('profileImage').src = image;
+            document.getElementById('profileDescription').innerText = `${title}'s profile description goes here.`;
+            document.getElementById('profileModal').style.display = 'block';
+        }
+
+        function showSchedule(designer) {
+            alert(`Checking schedule for ${designer}`);
+        }
+
+        function showReviewModal(designer) {
+            document.getElementById('reviewModalTitle').innerText = `Review for ${designer}`;
+            document.getElementById('reviewModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function submitReview() {
+            const reviewerName = document.getElementById('reviewerName').value;
+            const reviewText = document.getElementById('reviewText').value;
+
+            if (!reviewerName || !reviewText) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            const reviewsContainer = document.getElementById('reviews');
+            const newReview = document.createElement('div');
+            newReview.classList.add('review');
+            newReview.innerHTML = `<strong>${reviewerName}</strong><p>${reviewText}</p>`;
+            reviewsContainer.appendChild(newReview);
+
+            document.getElementById('reviewerName').value = '';
+            document.getElementById('reviewText').value = '';
+            closeModal('reviewModal');
+            showNotification('Review submitted successfully!');
+        }
+
+        function scrollGallery(direction) {
+            const galleryItems = document.getElementById('galleryItems');
+            const scrollAmount = direction === 'right' ? 200 : -200;
+            galleryItems.scrollBy({ top: 0, left: scrollAmount, behavior: 'smooth' });
+        }
+
+        function showNotification(message) {
+            document.getElementById('notificationMessage').innerText = message;
+            document.getElementById('notification').style.display = 'flex';
+            setTimeout(closeNotification, 3000);
+        }
+
+        function closeNotification() {
+            document.getElementById('notification').style.display = 'none';
+        }
+
+        function bookAppointment() {
+            const date = document.getElementById('date').value;
+            if (!date) {
+                alert('Please select a date!');
+                return;
+            }
+            showNotification(`Appointment booked for ${date}!`);
+            closeModal('profileModal');
+        }
+
+        flatpickr("#date", {
+            dateFormat: "Y-m-d",
+        });
+    </script>
+</body>
+
+</html>

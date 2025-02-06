@@ -9,32 +9,39 @@ class Product extends Model
 {
     use HasFactory;
 
-    // Set the primary key
-    protected $primaryKey = 'productID';
-    public $incrementing = false;
+    protected $table = 'products';
 
-    protected $keyType = 'string';
+    protected $primaryKey = 'productID';
 
     protected $fillable = [
-        'productID',
         'categoryID',
         'brandID',
         'name',
         'price',
+        'quantityInStock',
+        'inStocked',
+        'status',
         'description',
         'image',
-        'quantity', 
     ];
 
-    // Relationship with Category
     public function category()
     {
-        return $this->belongsTo(Category::class, 'categoryID', 'categoryID');
+        return $this->belongsTo(Category::class, 'categoryID');
     }
 
-    // Relationship with Brand
     public function brand()
     {
-        return $this->belongsTo(Brand::class, 'brandID', 'brandID');
+        return $this->belongsTo(Brand::class, 'brandID');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'productID', 'productID');
+    }
+    // Define the inverse relationship with Order
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'orderID'); // Adjust 'order_id' to your actual foreign key
     }
 }

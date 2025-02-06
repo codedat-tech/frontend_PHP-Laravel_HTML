@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('fullname');
             $table->string('email');
             $table->string('password');
-            $table->integer('phone');
-            $table->string('address');
-            $table->dateTime('createdAT');
+            $table->integer('phone')->nullable;
+            $table->string('address')->nullable;
+            $table->rememberToken()->nullable;
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

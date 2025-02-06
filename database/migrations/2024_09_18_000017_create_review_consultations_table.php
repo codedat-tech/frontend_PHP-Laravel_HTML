@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('consultationID');
             $table->float('rating');
             $table->string('comment');
-            $table->dateTime('createdAT');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

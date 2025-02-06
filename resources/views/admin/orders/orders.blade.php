@@ -4,7 +4,11 @@
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-
+        @if ($noResults)
+            <div class="alert alert-warning">
+                No order found matching your search criteria.
+            </div>
+        @endif
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -15,114 +19,150 @@
             </div>
         @endif
 
-        {{-- Orders List --}}
-        <h2>Orders List</h2>
+        {{-- 1.search --}}
+        <form action="{{ route('orders.index') }}" method="GET">
+            <div class="d-flex align-items-center justify-content-between">
+                <h2>Order Management</h2>
+
+                <div class="d-flex align-items-center">
+                    <input type="number" name="paginate" class="form-control" value="{{ request()->paginate ?? 5 }}"
+                        size="2" style="width: 70px; overflow-y: scroll;" onchange="this.form.submit()">
+                    <span style="margin-left: 5px;">entries per page</span>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="mr-2">
+                        <input type="text" name="search" class="form-control" placeholder="Search by order..."
+                            value="{{ request()->search }}" size="50">
+                    </div>
+                    <div class="mr-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {{-- 2.Orders List --}}
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        {{-- <th>Order ID</th> --}}
-                        <th>Customer ID</th>
-                        <th>Order Date</th>
-                        <th>Status</th>
-                        <th>Total Price</th>
-                        <th>Shipping Address</th>
+                        <th>Order of Customer
+                            <a href="javascript:void(0);" onclick="sortColumn('customer')" class="sort-link"
+                                id="sort-customer">
+                                <i
+                                    class="fas fa-angle-{{ request()->get('sort_by') === 'customer' && request()->get('sort') === 'asc' ? 'up' : 'down' }}"></i>
+                            </a>
+                        </th>
+
+                        <th>Order Date
+                            <a href="javascript:void(0);" onclick="sortColumn('orderDate')" class="sort-link"
+                                id="sort-orderDate">
+                                <i
+                                    class="fas fa-angle-{{ request()->get('sort_by') === 'orderDate' && request()->get('sort') === 'asc' ? 'up' : 'down' }}"></i>
+                            </a>
+                        </th>
+                        <th>Order Status
+                            <a href="javascript:void(0);" onclick="sortColumn('status1')" class="sort-link"
+                                id="sort-status1">
+                                <i
+                                    class="fas fa-angle-{{ request()->get('sort_by') === 'status1' && request()->get('sort') === 'asc' ? 'up' : 'down' }}"></i>
+                            </a>
+                        </th>
+                        <th>Total Price
+                            <a href="javascript:void(0);" onclick="sortColumn('totalPrice')" class="sort-link"
+                                id="sort-totalPrice">
+                                <i
+                                    class="fas fa-angle-{{ request()->get('sort_by') === 'totalPrice' && request()->get('sort') === 'asc' ? 'up' : 'down' }}"></i>
+                            </a>
+                        </th>
+                        <th>Shipping Address
+                            <a href="javascript:void(0);" onclick="sortColumn('shippingAddress')" class="sort-link"
+                                id="sort-shippingAddress">
+                                <i
+                                    class="fas fa-angle-{{ request()->get('sort_by') === 'shippingAddress' && request()->get('sort') === 'asc' ? 'up' : 'down' }}"></i>
+                            </a>
+                        </th>
                         <th>Actions</th>
+                        <th>Status
+                            <a href="javascript:void(0);" onclick="sortColumn('status')" class="sort-link" id="sort-status">
+                                <i
+                                    class="fas fa-angle-{{ request()->get('sort_by') === 'status' && request()->get('sort') === 'asc' ? 'up' : 'down' }}"></i>
+                            </a>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($orders as $order)
                         <tr>
-                            {{-- <td>{{ $order->orderID }}</td> --}}
-                            <td>{{ $order->customerID }}</td>
+                            <td>
+                                <a href="javascript:void(0)" onclick="viewOrder({{ $order->orderID }})"
+                                    style="text-decoration: underline; cursor: pointer;">
+                                    {{ $order->customer->fullname }}</a>
+                            </td>
                             <td>{{ $order->orderDate }}</td>
-                            <td>{{ $order->status }}</td>
+                            <td>{{ $order->status1 }}</td>
                             <td>{{ $order->totalPrice }}</td>
                             <td>{{ $order->shippingAddress }}</td>
                             <td>
-                                {{-- Edit button --}}
-                                <button type="button" class="btn btn-warning" onclick="editOrder({{ $order->orderID }})">
-                                    Edit
-                                </button>
-
-                                {{-- Delete button --}}
-                                <form action="{{ route('orders.destroy', $order->orderID) }}" method="POST"
-                                    class="d-inline-block">
+                                <form action="{{ route('orders.toggleStatus', $order->orderID) }}" method="POST"
+                                    style="display: inline;">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                    @method('POST')
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure you want to change the status?')">
+                                        {{ $order->status ? 'Disable' : 'Enable' }}
+                                    </button>
                                 </form>
+                            </td>
+                            <td>
+                                {{ $order->status ? 'Active' : 'Inactive' }}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
-    </div>
-
-    {{-- Edit Order Modal --}}
-    <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="editOrderModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editOrderModalLabel">Edit Order</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="editForm" method="POST" action="">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" id="edit_orderID" name="orderID" value="{{ $order->orderID }}">
-                        <div class="form-group">
-                            <label for="edit_orderDate">Order ID: {{ $order->orderID }}</label>
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_orderDate">Order Date</label>
-                            <input type="text" id="edit_orderDate" name="orderDate" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_status">Status</label>
-                            <input type="text" id="edit_status" name="status" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_totalPrice">Total Price</label>
-                            <input type="number" id="edit_totalPrice" name="totalPrice" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="edit_shippingAddress">Shipping Address</label>
-                            <input type="text" id="edit_shippingAddress" name="shippingAddress" class="form-control"
-                                required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Order</button>
-                    </form>
-                </div>
+            <div class="pagination justify-content-center" style="margin:20px 0; margin-left: -200px">
+                {{ $orders->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
-
     <script>
-        function editOrder(id) {
-            fetch(`/orders/${id}/edit`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('edit_orderID').value = data.orderID;
-                    document.getElementById('edit_orderDate').value = data.orderDate;
-                    document.getElementById('edit_status').value = data.status;
-                    document.getElementById('edit_totalPrice').value = data.totalPrice;
-                    document.getElementById('edit_shippingAddress').value = data.shippingAddress;
-                    document.getElementById('editForm').action = `/orders/${data.orderID}`;
-                    $('#editOrderModal').modal('show');
-                })
-                .catch(error => console.error('Error fetching order details:', error));
+        // 2. sort column
+        function sortColumn(column) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentSortBy = urlParams.get('sort_by');
+            const currentSortOrder = urlParams.get('sort') || 'asc';
+
+            // 
+            const newSortOrder = (currentSortBy === column && currentSortOrder === 'asc') ? 'desc' : 'asc';
+
+            urlParams.set('sort_by', column);
+            urlParams.set('sort', newSortOrder);
+            window.location.search = urlParams.toString();
+        }
+
+        // 3. set style cursor
+        document.addEventListener('DOMContentLoaded', function() {
+            const columns = ['customer', 'orderDate', 'status1', 'totalPrice', 'shippingAddress', 'status'];
+            const currentSortBy = new URLSearchParams(window.location.search).get('sort_by');
+
+            columns.forEach(column => {
+                const link = document.getElementById(`sort-${column}`);
+                if (link) {
+                    if (column === currentSortBy) {
+                        link.classList.add('active-sort'); //highlight cột
+                        link.style.opacity = 1;
+                    } else {
+                        link.classList.remove('active-sort');
+                        link.style.opacity = 0.3; // Làm mờ cột
+                    }
+                }
+            });
+        });
+
+        // 4. view order
+        function viewOrder(orderID) {
+            window.location.href = `/orders/${orderID}`;
         }
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </div>
-    </div>
 @endsection

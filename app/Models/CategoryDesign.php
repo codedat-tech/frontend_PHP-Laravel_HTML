@@ -15,5 +15,10 @@ class CategoryDesign extends Model
 
 
     // Optionally specify the fields that are mass assignable
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'status'];
+
+    public function blueprints()
+    {
+        return $this->hasMany(Blueprint::class, 'categoryDesignID');
+    }
 }

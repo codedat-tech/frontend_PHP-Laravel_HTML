@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id('blueprintID');
             $table->unsignedBigInteger('categoryDesignID');
             $table->unsignedBigInteger('designerID')->nullable();
-            $table->dateTime('createAT');
-            $table->string('description');
+            $table->string('name');
             $table->string('image');
+            $table->boolean('status')->default(1);
             $table->timestamps();
             $table->foreign('categoryDesignID')->references('categoryDesignID')->on('category_designs')->onDelete('cascade');
             $table->foreign('designerID')->references('designerID')->on('designers')->onDelete('cascade');

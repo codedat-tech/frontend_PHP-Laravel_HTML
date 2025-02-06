@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+  }
+  
+  .center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+   
+  .modal-box{
+    top: 40%;
+    background: white;
+    height: auto;
+    width: 400px;
+    margin-top:10px;
+    padding: 10px 10px;
+    border-radius: 15px;
+    border: 3px solid orange;
+  }
+
+  .title-contact{
+    font-size: 20px;
+    font-weight: 700;
+    position: relative;
+  }
+
+  .title-contact::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 3px;
+    width: 170px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #ffedd4, #ffa200);
+  }
+
+  .fa-times{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ffffff;
+    height: 20px;
+    width: 20px;
+    line-height: 30px;
+    color: rgb(249, 156, 43);
+    font-size: 18px;
+    border-radius: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .fa-times:hover{
+    font-size: 25px;
+  }
+  
+  .form_container{
+    background: #ffffff;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+  }
+
+form
+{
+    margin-left: 35px;
+}
+    
+  form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px 0 12px 0;
+    width: auto;
+  }
+  
+  form .input-box span.details{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+  
+  .user-details .input-box input{
+    height: 25px;
+    /* width: 70%; */
+    outline: none;
+    font-size: 13px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid{
+    border-color: #f6a71e;
+  }
+
+.name
+  {
+    font-weight: 550;
+  }
+
+  .sign-up a
+  {
+    color: #f3be63;
+  }
+   
+   form .button{
+     height: 30px;
+     margin: 10px 0 0 0
+   }
+   form .button input{
+     height: 100%;
+     width: 60%;
+     margin-left: 23%;
+     border-radius: 5px;
+     border: none;
+     color: #fff;
+     font-size: 18px;
+     font-weight: 500;
+     letter-spacing: 1px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     background: linear-gradient(135deg, #ffedd4, #ffa200);
+   }
+
+   form .button input:hover{
+    transform: scale(0.99);
+    background: linear-gradient(135deg, #f6a71e, #ffedd4);
+    }  
+
+
+    

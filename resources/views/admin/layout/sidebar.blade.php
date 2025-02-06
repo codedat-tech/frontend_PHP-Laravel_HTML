@@ -24,13 +24,12 @@
                 {{-- report --}}
                 <li class="nav-item menu-open">
                     <a href="{{ url('admin/report/products') }}" class="nav-link active">
-
                         <p>View Reports</p>
                     </a>
                 </li>
 
                 {{-- product management --}}
-                <li class="nav-item menu-close">
+                <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
                         <p>
                             Product Management
@@ -50,7 +49,7 @@
                             <a href="{{ url('admin/products/view') }}"
                                 class="nav-link {{ request()->is('admin/products/view') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>List Product</p>
+                                <p>Product List</p>
                             </a>
                         </li>
                     </ul>
@@ -73,7 +72,7 @@
                 </li>
 
                 {{-- blueprint Management --}}
-                <li class="nav-item menu-close">
+                <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
                         <p>
                             Blueprint Management
@@ -129,9 +128,21 @@
                         <p>Consultation Management</p>
                     </a>
                 </li>
+                {{-- Voucher Management --}}
+                <li class="nav-item menu-open">
+                    <a href="{{ url('vouchers') }}" class="nav-link active">
+
+                        <p>Voucher Management</p>
+                    </a>
+                </li>
+                {{-- blog Management --}}
+                <li class="nav-item menu-open">
+                    <a href="{{ url('blogs') }}" class="nav-link active">
+
+                        <p>Blog Management</p>
+                    </a>
+                </li>
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>

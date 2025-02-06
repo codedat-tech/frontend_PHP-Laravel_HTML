@@ -12,6 +12,6 @@ class GalleryController extends Controller
         $blueprints = Blueprint::all();
 
         // Return the view with the blueprints data
-        return view('interior-design', compact('blueprints'));
+        return view('product.interior-design', compact('blueprints'));
     }
 }

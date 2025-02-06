@@ -16,13 +16,15 @@ return new class extends Migration
             $table->string('fullname');
             $table->string('email');
             $table->string('password');
-            $table->integer('phone');
-            $table->string('address');
-            $table->string('portfolio');
-            $table->integer('experienceYear');
-            $table->string('specialization');
-            $table->string('image');
-            $table->float('rating');
+            $table->integer('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('portfolio')->nullable();
+            $table->integer('experienceYear')->nullable();
+            $table->string('specialization')->nullable();
+            $table->string('image')->nullable();
+            $table->float('rating')->nullable();
+            $table->boolean('status')->default(1);
+            $table->rememberToken()->nullable;
             $table->timestamps();
         });
     }

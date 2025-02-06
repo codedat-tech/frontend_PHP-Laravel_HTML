@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id('orderID');
             $table->unsignedBigInteger('customerID');
             $table->string('orderDate');
-            $table->string('status');
+            $table->string('status1');
+            $table->boolean('status')->default(1);
             $table->integer('totalPrice');
             $table->string('shippingAddress');
             $table->timestamps();

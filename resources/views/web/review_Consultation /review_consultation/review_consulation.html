@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior Design Consultation Service Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c38686; /* Soft light background */
+            margin: 0;
+            padding: 0;
+        }
+
+        .review-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fad5d5; /* White background */
+            box-shadow: 0 0 10px rgba(236, 219, 219, 0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            background-color: #eca92d; /* Soft orange */
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem 0;
+            border-radius: 8px 8px 0 0;
+        }
+
+        h2 {
+            color:#7a5210; /* Muted darker orange for headings */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #9e630c;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #e99c7a; /* Neutral border */
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #c47516; /* Darker orange border on focus */
+            outline: none;
+        }
+
+        button[type="submit"] {
+            background-color: #b87b30; /* Darker orange */
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #eca258; /* Slightly darker orange on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="review-container">
+        <header>
+            <h1>Interior Design Consultation Service Review</h1>
+        </header>
+        <main>
+            <section class="review-form">
+                <h2>Write Your Review</h2>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <select id="rating" name="rating" required>
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Good</option>
+                            <option value="3">3 - Average</option>
+                            <option value="2">2 - Poor</option>
+                            <option value="1">1 - Very Poor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Comments:</label>
+                        <textarea id="comments" name="comments" rows="4" required></textarea>
+                    </div>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const rating = document.getElementById("rating").value;
+                const comments = document.getElementById("comments").value.trim();
+
+                if (name === "" || email === "" || comments === "") {
+                    alert("Please fill in all required fields.");
+                    return;
+                }
+
+                if (!validateEmail(email)) {
+                    alert("Invalid email address.");
+                    return;
+                }
+
+                alert("Thank you for your review! Your feedback has been recorded.");
+                form.reset();
+            });
+
+            function validateEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+        });
+    </script>
+</body>
+</html>

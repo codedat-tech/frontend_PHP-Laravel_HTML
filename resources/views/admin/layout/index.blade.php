@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Administrator | Dashboard</title>
-
     <base href='{{ asset('/') }}' />
-
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -29,47 +28,29 @@
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    {{-- sweet alert --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.1.9/sweetalert2.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-        <!-- Preloader -->
-        {{-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div> --}}
-
-        <!-- Navbar -->
-        {{-- narbar --}}
-        {{-- @include('admin.layout.narbar') --}}
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
         {{-- sidebar --}}
         @include('admin.layout.sidebar')
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             @yield('content')
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
+
         {{-- footer --}}
         @include('admin.layout.footer')
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
 
+    @yield('script-section')
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -103,7 +84,10 @@
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard.js"></script>
+    {{-- <script src="dist/js/pages/dashboard.js"></script> --}}
+    {{-- sweet alert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.1.9/sweetalert2.min.js"></script> --}}
 </body>
 
 </html>

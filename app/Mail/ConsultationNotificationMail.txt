@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\Consultation;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class ConsultationNotificationMail extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $consultation;
+
+    public function __construct(Consultation $consultation)
+    {
+        $this->consultation = $consultation;
+    }
+
+    public function build()
+    {
+        return $this->view('admin.emails.consultation_reminder')
+            ->with([
+                'consultation' => $this->consultation,
+                'designer' => $this->consultation->designer,
+                'customer' => $this->consultation->customer,
+            ])
+            ->subject('Consultation Reminder for ID: ' . $this->consultation->consultationID);
+    }
+}

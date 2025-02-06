@@ -19,10 +19,9 @@ class Category extends Model
     protected $keyType = 'int';
 
     // Specify the fields that can be mass-assigned, including 'image'
-    protected $fillable = ['name', 'description', 'image'];
-    public function products() {
+    protected $fillable = ['name', 'status'];
+    public function products()
+    {
         return $this->hasMany(Product::class, 'categoryID');
-
+    }
 }
-}
-

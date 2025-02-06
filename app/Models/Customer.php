@@ -13,14 +13,24 @@ class Customer extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $primaryKey = 'customerID';
-
-    protected $fillable = [
-        'fullname', 'email', 'password', 'phone', 'address',
-    ];
-
+    public $incrementing = true;
     protected $hidden = [
         'password',
     ];
-
     public $timestamps = true;
+    protected $table = 'customers';
+    protected $fillable = [
+        'fullname',
+        'email',
+        'password',
+        'phone',
+        'address',
+        'remember_token',
+        'status',
+    ];
+
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class, 'customerID');
+    }
 }

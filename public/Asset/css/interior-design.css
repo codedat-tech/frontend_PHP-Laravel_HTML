@@ -5,21 +5,21 @@ body {
     background-color: #f4f4f4;
 }
 
-header {
+/* header {
     background-color: #333;
     color: #fff;
     padding: 1rem;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+} */
 
-.menu {
+.menu2 {
     display: flex;
     justify-content: center;
     margin: 1rem 0;
 }
 
-.menu-item {
+.menu2-item {
     margin: 0 1rem;
     cursor: pointer;
     color: #333;
@@ -27,21 +27,21 @@ header {
     transition: color 0.3s;
 }
 
-.menu-item:hover {
-    color: #007BFF;
+.menu2-item:hover {
+    color: #007bff;
 }
 
 .style-section {
     margin: 2rem;
 }
 
-.gallery {
+.gallery2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.gallery-item {
+.gallery2-item {
     margin: 1rem;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -52,11 +52,11 @@ header {
     transition: transform 0.3s;
 }
 
-.gallery-item:hover {
+.gallery2-item:hover {
     transform: scale(1.05);
 }
 
-.gallery-item img {
+.gallery2-item img {
     width: 100%;
     height: auto;
 }
@@ -69,14 +69,14 @@ header {
     text-align: center;
 }
 
-.details {
+.details2 {
     display: none;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 10px;
 }
 
-.details img {
+.details2 img {
     margin: 0.5rem;
     width: 100px;
     height: 100px;
@@ -85,10 +85,9 @@ header {
     border: 1px solid #ddd;
     border-radius: 5px;
     transition: transform 0.2s;
-
 }
 
-.details img:hover {
+.details2 img:hover {
     transform: scale(1.1);
 }
 
@@ -103,7 +102,6 @@ header {
     background: #f9f9f9;
     padding: 5px;
     border: 1px solid #ddd;
-
 }
 
 .gallery-item .main-image {

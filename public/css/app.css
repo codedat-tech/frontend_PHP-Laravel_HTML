@@ -43,22 +43,35 @@ body {
     padding-left: 1.5rem;
 }
 
-.small-box
-{
+.small-box {
     border-radius: 5%;
 }
 
-.small-box-footer
-{
+.small-box-footer {
     color: white;
     padding-left: 5px;
     font-size: 15px;
 }
 
-.report-count
-{
+.report-count {
     font-size: 30px;
     color: rgb(79, 21, 239);
     font-weight: bold;
     text-align: center;
+}
+.sort-link {
+    cursor: pointer;
+    color: red;
+    opacity: 0.3;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+.sort-link.active-sort {
+    opacity: 1;
+    color: rgba(255, 0, 0, 0.908);
+}
+
+.sort-link:hover {
+    opacity: 0.7;
+    color: #004080;
 }

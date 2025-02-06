@@ -16,6 +16,7 @@ class OrderDetailSeeder extends Seeder
                 'quantity' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'status' => '1',
             ],
             [
                 'productID' => 2,
@@ -23,6 +24,7 @@ class OrderDetailSeeder extends Seeder
                 'quantity' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'status' => '1',
             ],
             [
                 'productID' => 3,
@@ -30,6 +32,7 @@ class OrderDetailSeeder extends Seeder
                 'quantity' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'status' => '1',
             ],
             [
                 'productID' => 4,
@@ -37,6 +40,7 @@ class OrderDetailSeeder extends Seeder
                 'quantity' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'status' => '1',
             ],
             [
                 'productID' => 1,
@@ -44,6 +48,7 @@ class OrderDetailSeeder extends Seeder
                 'quantity' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
+                'status' => '1',
             ],
         ]);
     }

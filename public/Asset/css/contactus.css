@@ -1,0 +1,148 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+  }
+  
+  .center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+   
+  .modal-box{
+    top: 40%;
+    opacity: 0;
+    visibility: hidden;
+    background: white;
+    height: auto;
+    width: 450px;
+    margin-top:10px;
+    padding: 10px 10px;
+    border-radius: 15px;
+    border: 3px solid orange;
+    display:none;
+  }
+
+  .show-modal{
+    opacity: 0;
+    visibility: hidden;
+  }
+  .modal-box.show-modal{
+    top: 50%;
+    opacity: 1;
+    visibility: visible;
+    transition: .4s;
+    display:block
+  }
+
+  .title-contact{
+    font-size: 20px;
+    font-weight: 500;
+    position: relative;
+  }
+  .title-contact::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 3px;
+    width: 100px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #ffedd4, #ffa200);
+  }
+
+  .fa-times{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ffffff;
+    height: 20px;
+    width: 20px;
+    line-height: 30px;
+    color: rgb(249, 156, 43);
+    font-size: 18px;
+    border-radius: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .fa-times:hover{
+    font-size: 25px;
+  }
+  
+  .form_container{
+    background: #ffffff;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+  }
+    
+  form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px 0 12px 0;
+  }
+  form .user-details .input-box{
+    margin-bottom: 5px;
+    width: calc(100% / 2 - 10px);
+  }
+  form .input-box span.details{
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+  
+  .user-details .input-box input{
+    height: 25px;
+    width: 100%;
+    outline: none;
+    font-size: 13px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  .user-details .input-box input:focus,
+  .user-details .input-box input:valid{
+    border-color: #f6a71e;
+  }
+   form input[type="radio"]{
+     display: none;
+   }
+   form textarea
+   {
+    width: 190px;
+    height: 120px;
+   }
+   form .button{
+     height: 30px;
+     margin: 10px 0 0 0
+   }
+   form .button input{
+     height: 100%;
+     width: 50%;
+     margin-left: 25%;
+     border-radius: 5px;
+     border: none;
+     color: #fff;
+     font-size: 18px;
+     font-weight: 500;
+     letter-spacing: 1px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     background: linear-gradient(135deg, #ffedd4, #ffa200);
+   }
+
+   form .button input:hover{
+    transform: scale(0.99);
+    background: linear-gradient(135deg, #f6a71e, #ffedd4);
+    }  
+
+
+    

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('orderID');
             $table->float('rating');
             $table->string('comment');
-            $table->dateTime('createAT');
+            $table->boolean('status')->default(1);
             $table->timestamps();
             $table->foreign('orderID')->references('orderID')->on('orders')->onDelete('cascade');
         });

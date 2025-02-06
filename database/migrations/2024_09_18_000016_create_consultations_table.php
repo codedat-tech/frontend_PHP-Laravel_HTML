@@ -16,8 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('designerID');
             $table->unsignedBigInteger('customerID');
             $table->dateTime('scheduledAT');
-            $table->string('status');
+            $table->string('status1');
+            $table->boolean('status')->default(1);
             $table->string('note');
+            $table->enum('alert_sent', ['active', 'sent'])->default('active');
             $table->timestamps();
             $table->foreign('designerID')->references('designerID')->on('designers')->onDelete('cascade');
             $table->foreign('customerID')->references('customerID')->on('customers')->onDelete('cascade');

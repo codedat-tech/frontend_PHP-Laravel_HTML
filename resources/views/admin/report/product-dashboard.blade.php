@@ -15,11 +15,12 @@
         </h3>
     </div>
     <div class="d-flex justify-content-center align-items-center">
-        <div style="width: 80%; height: 400px;">
+        <div style="width: 60%; height: 250px;">
             <canvas id="productChart"></canvas>
         </div>
     </div>
-
+@endsection
+@section('script-section')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         var ctx = document.getElementById('productChart').getContext('2d');
